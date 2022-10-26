@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class Form extends Component {
+class Form extends React.Component {
   render() {
     return (
       <form>
@@ -14,6 +14,7 @@ export class Form extends Component {
             // onChange={handleChange}
           />
         </labe>
+        <br />
         <labe>
           Descrição
           <input
@@ -24,6 +25,7 @@ export class Form extends Component {
             // onChange={handleChange}
           />
         </labe>
+        <br />
         <labe>
           Attr01
           <input
@@ -34,6 +36,7 @@ export class Form extends Component {
             // onChange={handleChange}
           />
         </labe>
+        <br />
         <labe>
           Attr02
           <input
@@ -44,6 +47,7 @@ export class Form extends Component {
             // onChange={handleChange}
           />
         </labe>
+        <br />
         <labe>
           Attr03
           <input
@@ -54,6 +58,7 @@ export class Form extends Component {
             // onChange={handleChange}
           />
         </labe>
+        <br />
         <labe>
           Imagem
           <input
@@ -64,6 +69,7 @@ export class Form extends Component {
             // onChange={handleChange}
           />
         </labe>
+        <br />
         <labe>
           Raridade
           <select data-testid="rare-input" name="rare">
@@ -72,6 +78,7 @@ export class Form extends Component {
             <option value="muito raro">Muito raro</option>
           </select>
         </labe>
+        <br />
         <labe>
           Super Trybe Trunfo
           <input
