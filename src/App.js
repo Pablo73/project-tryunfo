@@ -13,6 +13,7 @@ class App extends React.Component {
     rare: '',
     trunfo: false,
     isSaveButtonDisabled: true,
+    saveCard: [],
   };
 
   onInputChange = ({ target }) => {
@@ -44,6 +45,40 @@ class App extends React.Component {
     });
   };
 
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+
+    const { description,
+      image,
+      rare,
+      attr1,
+      attr2,
+      attr3,
+      name,
+    } = this.state;
+
+    const valueCard = {
+      name,
+      description,
+      attr1,
+      attr2,
+      attr3,
+      image,
+      rare,
+    };
+
+    this.setState(({ saveCard }) => ({
+      saveCard: [...saveCard, valueCard],
+      name: '',
+      description: '',
+      image: '',
+      attr1: '0',
+      attr2: '0',
+      attr3: '0',
+      rare: '',
+    }));
+  };
+
   render() {
     const { name,
       description,
@@ -70,6 +105,7 @@ class App extends React.Component {
           cardTrunfo={ trunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <h1>PRÉ-VISUALIZAÇÃO</h1>
         <Card
