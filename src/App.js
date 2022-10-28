@@ -14,6 +14,7 @@ class App extends React.Component {
     trunfo: false,
     hasTrunfo: false,
     isSaveButtonDisabled: true,
+    isDeleteButtonDisabled: false,
     saveCard: [],
   };
 
@@ -85,6 +86,12 @@ class App extends React.Component {
     if (trunfo) this.setState({ hasTrunfo: true, trunfo: false });
   };
 
+  onDeleteButtonClick = (event) => {
+    console.log(event);
+    this.setState({ saveCard }, () => {
+    });
+  };
+
   render() {
     const { name,
       description,
@@ -96,6 +103,7 @@ class App extends React.Component {
       trunfo,
       hasTrunfo,
       isSaveButtonDisabled,
+      isDeleteButtonDisabled,
       saveCard,
     } = this.state;
 
@@ -118,18 +126,34 @@ class App extends React.Component {
         />
         <section>
           <h1>PRÉ-VISUALIZAÇÃO</h1>
-          { saveCard.map((value, index) => (
+          <div>
             <Card
-              key={ `${value.name} = ${index}` }
-              cardName={ value.name }
-              cardDescription={ value.description }
-              cardAttr1={ value.attr1 }
-              cardAttr2={ value.attr2 }
-              cardAttr3={ value.attr3 }
-              cardImage={ value.image }
-              cardRare={ value.rare }
-              cardTrunfo={ value.trunfo }
-            />))}
+              cardName={ name }
+              cardDescription={ description }
+              cardAttr1={ attr1 }
+              cardAttr2={ attr2 }
+              cardAttr3={ attr3 }
+              cardImage={ image }
+              cardRare={ rare }
+              cardTrunfo={ trunfo }
+            />
+          </div>
+          <div>
+            { saveCard.map((value, index) => (
+              <Card
+                key={ `${value.name} = ${index}` }
+                cardName={ value.name }
+                cardDescription={ value.description }
+                cardAttr1={ value.attr1 }
+                cardAttr2={ value.attr2 }
+                cardAttr3={ value.attr3 }
+                cardImage={ value.image }
+                cardRare={ value.rare }
+                cardTrunfo={ value.trunfo }
+                isDeleteButtonDisabled={ isDeleteButtonDisabled }
+                onDeleteButtonClick={ this.onDeleteButtonClick }
+              />))}
+          </div>
         </section>
       </div>
     );
