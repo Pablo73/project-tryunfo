@@ -81,9 +81,8 @@ class App extends React.Component {
       attr2: '0',
       attr3: '0',
       rare: '',
-      trunfo: false,
     }));
-    if (trunfo) this.setState({ hasTrunfo: true });
+    if (trunfo) this.setState({ hasTrunfo: true, trunfo: false });
   };
 
   render() {
@@ -97,6 +96,7 @@ class App extends React.Component {
       trunfo,
       hasTrunfo,
       isSaveButtonDisabled,
+      saveCard,
     } = this.state;
 
     return (
@@ -116,17 +116,21 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
         />
-        <h1>PRÉ-VISUALIZAÇÃO</h1>
-        <Card
-          cardName={ name }
-          cardDescription={ description }
-          cardAttr1={ attr1 }
-          cardAttr2={ attr2 }
-          cardAttr3={ attr3 }
-          cardImage={ image }
-          cardRare={ rare }
-          cardTrunfo={ trunfo }
-        />
+        <section>
+          <h1>PRÉ-VISUALIZAÇÃO</h1>
+          { saveCard.map((value, index) => (
+            <Card
+              key={ `${value.name} = ${index}` }
+              cardName={ value.name }
+              cardDescription={ value.description }
+              cardAttr1={ value.attr1 }
+              cardAttr2={ value.attr2 }
+              cardAttr3={ value.attr3 }
+              cardImage={ value.image }
+              cardRare={ value.rare }
+              cardTrunfo={ value.trunfo }
+            />))}
+        </section>
       </div>
     );
   }

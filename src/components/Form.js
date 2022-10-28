@@ -116,7 +116,6 @@ class Form extends React.Component {
               type="checkbox"
               checked={ cardTrunfo }
               onChange={ onInputChange }
-              disabled={ hasTrunfo }
             />
           </div>)
           : <h3>Você já tem um Super Trunfo em seu baralho</h3> }
