@@ -13,8 +13,8 @@ class App extends React.Component {
     rare: '',
     trunfo: false,
     hasTrunfo: false,
+    deleteCard: true,
     isSaveButtonDisabled: true,
-    isDeleteButtonDisabled: false,
     saveCard: [],
   };
 
@@ -87,9 +87,15 @@ class App extends React.Component {
   };
 
   onDeleteButtonClick = (event) => {
-    console.log(event);
-    this.setState({ saveCard }, () => {
-    });
+    const { trunfo } = this.state;
+
+    const divCard = event.target.parentNode;
+
+    divCard.parentNode.removeChild(divCard);
+
+    if (!trunfo) this.setState({ hasTrunfo: false, trunfo: false });
+
+    this.setState({ deleteCard: true });
   };
 
   render() {
@@ -103,8 +109,8 @@ class App extends React.Component {
       trunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      isDeleteButtonDisabled,
       saveCard,
+      deleteCard,
     } = this.state;
 
     return (
@@ -150,7 +156,7 @@ class App extends React.Component {
                 cardImage={ value.image }
                 cardRare={ value.rare }
                 cardTrunfo={ value.trunfo }
-                isDeleteButtonDisabled={ isDeleteButtonDisabled }
+                deleteCard={ deleteCard }
                 onDeleteButtonClick={ this.onDeleteButtonClick }
               />))}
           </div>

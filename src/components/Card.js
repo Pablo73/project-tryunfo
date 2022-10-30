@@ -11,12 +11,12 @@ class Card extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      isDeleteButtonDisabled,
       onDeleteButtonClick,
+      deleteCard,
     } = this.props;
 
     return (
-      <section>
+      <div>
         <h2 data-testid="name-card">{ cardName }</h2>
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
         <p data-testid="description-card">{ cardDescription }</p>
@@ -27,15 +27,16 @@ class Card extends Component {
         {
           cardTrunfo && <h2 data-testid="trunfo-card">Super Trunfo</h2>
         }
-        <button
-          data-testid="delete-button"
-          type="button"
-          disabled={ isDeleteButtonDisabled }
-          onClick={ onDeleteButtonClick }
-        >
-          Excluir
-        </button>
-      </section>
+        { deleteCard ? (
+          <button
+            data-testid="delete-button"
+            type="button"
+            onClick={ onDeleteButtonClick }
+          >
+            Excluir
+          </button>)
+          : null }
+      </div>
     );
   }
 }
@@ -49,8 +50,8 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  isDeleteButtonDisabled: PropTypes.bool.isRequired,
   onDeleteButtonClick: PropTypes.func.isRequired,
+  deleteCard: PropTypes.bool.isRequired,
 };
 
 export default Card;
