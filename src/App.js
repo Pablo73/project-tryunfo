@@ -16,6 +16,7 @@ class App extends React.Component {
     deleteCard: true,
     isSaveButtonDisabled: true,
     saveCard: [],
+    filterCard: '',
   };
 
   onInputChange = ({ target }) => {
@@ -86,16 +87,18 @@ class App extends React.Component {
     if (trunfo) this.setState({ hasTrunfo: true, trunfo: false });
   };
 
-  onDeleteButtonClick = (event) => {
+  onDeleteButtonClick = ({ target }) => {
     const { trunfo } = this.state;
-
-    const divCard = event.target.parentNode;
-
+    const divCard = target.parentNode;
     divCard.parentNode.removeChild(divCard);
-
     if (!trunfo) this.setState({ hasTrunfo: false, trunfo: false });
-
     this.setState({ deleteCard: true });
+  };
+
+  handleSearchChange = (event) => {
+    this.setState({
+      filterCard: event.target.value,
+    });
   };
 
   render() {
@@ -111,7 +114,10 @@ class App extends React.Component {
       isSaveButtonDisabled,
       saveCard,
       deleteCard,
+      filterCard,
     } = this.state;
+
+    const filterCarName = saveCard.filter((carItem) => carItem.name.includes(filterCard));
 
     return (
       <div>
@@ -145,7 +151,19 @@ class App extends React.Component {
             />
           </div>
           <div>
-            { saveCard.map((value, index) => (
+            <labe>
+              Filtro
+              <input
+                data-testid="name-filter"
+                value={ filterCard }
+                onChange={ this.handleSearchChange }
+                type="text"
+              />
+            </labe>
+            <br />
+          </div>
+          <div>
+            { filterCarName.map((value, index) => (
               <Card
                 key={ `${value.name} = ${index}` }
                 cardName={ value.name }
