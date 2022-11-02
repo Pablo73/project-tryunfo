@@ -16,7 +16,11 @@ class App extends React.Component {
     deleteCard: true,
     isSaveButtonDisabled: true,
     saveCard: [],
-    filterCard: '',
+    filterCardName: '',
+    filterCardRare: '',
+    filterCardSuper: false,
+    rareDisabled: false,
+    nameDisabled: false,
   };
 
   onInputChange = ({ target }) => {
@@ -90,34 +94,69 @@ class App extends React.Component {
   onDeleteButtonClick = ({ target }) => {
     const { trunfo } = this.state;
     const divCard = target.parentNode;
+
     divCard.parentNode.removeChild(divCard);
+
     if (!trunfo) this.setState({ hasTrunfo: false, trunfo: false });
     this.setState({ deleteCard: true });
   };
 
-  handleSearchChange = (event) => {
+  handleSearchChangeName = (event) => {
     this.setState({
-      filterCard: event.target.value,
+      filterCardName: event.target.value,
     });
+  };
+
+  handleSearchChangeRare = (event) => {
+    this.setState({
+      filterCardRare: event.target.value,
+    });
+  };
+
+  handleSearchChangeSuper = (event) => {
+    const value = event.target.checked;
+    const { filterCardSuper } = this.state;
+    this.setState({
+      filterCardSuper: value,
+    });
+    if (filterCardSuper === false) {
+      this.setState({ rareDisabled: true, nameDisabled: true });
+    }
+    if (filterCardSuper === true) {
+      this.setState({ rareDisabled: false, nameDisabled: false });
+    }
   };
 
   render() {
     const { name,
-      description,
-      attr1,
-      attr2,
-      attr3,
-      image,
-      rare,
-      trunfo,
-      hasTrunfo,
-      isSaveButtonDisabled,
-      saveCard,
-      deleteCard,
-      filterCard,
+      description, attr1, attr2,
+      attr3, image, rare,
+      trunfo, hasTrunfo, isSaveButtonDisabled,
+      saveCard, deleteCard, filterCardName,
+      filterCardRare, filterCardSuper, rareDisabled,
+      nameDisabled,
     } = this.state;
 
-    const filterCarName = saveCard.filter((carItem) => carItem.name.includes(filterCard));
+    const filterCarName = saveCard.filter(
+      (carItem) => carItem.name.includes(filterCardName),
+    );
+
+    const filterCarRare = filterCarName.filter((carItem) => {
+      if (filterCardRare === '') {
+        return carItem;
+      }
+      if (filterCardRare === 'todas') {
+        return carItem;
+      }
+      return carItem.rare === filterCardRare;
+    });
+
+    const filterCarSuper = filterCarRare.filter((carItem) => {
+      if (filterCardSuper === false) {
+        return carItem;
+      }
+      return carItem.trunfo === true;
+    });
 
     return (
       <div>
@@ -150,20 +189,42 @@ class App extends React.Component {
               cardTrunfo={ trunfo }
             />
           </div>
+          <labe>
+            Filtro por nome
+            <input
+              data-testid="name-filter"
+              value={ filterCardName }
+              onChange={ this.handleSearchChangeName }
+              disabled={ nameDisabled }
+              type="text"
+            />
+          </labe>
+          <br />
+          <labe>
+            Filtro por raridade
+            <select
+              data-testid="rare-filter"
+              value={ filterCardRare }
+              onChange={ this.handleSearchChangeRare }
+              disabled={ rareDisabled }
+            >
+              <option value="todas">todas</option>
+              <option value="normal">normal</option>
+              <option value="raro">raro</option>
+              <option value="muito raro">muito raro</option>
+            </select>
+          </labe>
+          <labe>
+            Super Trunfo
+            <input
+              data-testid="trunfo-filter"
+              value={ filterCardSuper }
+              onChange={ this.handleSearchChangeSuper }
+              type="checkbox"
+            />
+          </labe>
           <div>
-            <labe>
-              Filtro
-              <input
-                data-testid="name-filter"
-                value={ filterCard }
-                onChange={ this.handleSearchChange }
-                type="text"
-              />
-            </labe>
-            <br />
-          </div>
-          <div>
-            { filterCarName.map((value, index) => (
+            { filterCarSuper.map((value, index) => (
               <Card
                 key={ `${value.name} = ${index}` }
                 cardName={ value.name }
