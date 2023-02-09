@@ -1,7 +1,9 @@
 {
   "name": "tryunfo",
+  "homepage": "https://github.com/Pablo73/project-tryunfo", 
   "version": "1.0.1",
-  "homepage": "./github-page",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
   "private": true,
   "engines": {
     "node": "16"
