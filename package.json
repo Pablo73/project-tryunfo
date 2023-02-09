@@ -1,7 +1,7 @@
 {
   "name": "tryunfo",
   "version": "1.0.1",
-  "homepage": "./build",
+  "homepage": "./githubPage",
   "private": true,
   "engines": {
     "node": "16"
